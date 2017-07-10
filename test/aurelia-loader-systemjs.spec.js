@@ -1,12 +1,11 @@
-import {Loader} from '../src/loader';
-
+import { SystemJSLoader } from '../src/aurelia-loader-systemjs';
 
 describe("the abstract loader", () => {
 
   describe("instance", () => {
     var loader;
 
-    beforeEach(() => loader = new Loader());
+    beforeEach(() => loader = new SystemJSLoader());
 
     describe("abstract method", () => {
       it('loadModule() should throw when called', () => {

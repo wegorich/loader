@@ -1,1 +1,1 @@
-export * from 'aurelia-loader/aurelia-loader';
+export * from 'aurelia-loader-systemjs/aurelia-loader-systemjs';

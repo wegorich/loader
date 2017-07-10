@@ -1,5 +1,5 @@
 {
-  "name": "aurelia-loader",
+  "name": "aurelia-loader-systemjs",
   "version": "1.0.0",
   "description": "An abstract module which specifies an interface for loading modules and view templates.",
   "keywords": [
@@ -9,52 +9,56 @@
   ],
   "homepage": "http://aurelia.io",
   "bugs": {
-    "url": "https://github.com/aurelia/loader/issues"
+    "url": "https://github.com/wegorich/loader/issues"
   },
   "license": "MIT",
   "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
-  "main": "dist/commonjs/aurelia-loader.js",
-  "typings": "dist/aurelia-loader.d.ts",
+  "main": "dist/commonjs/aurelia-loader-systemjs.js",
+  "typings": "dist/aurelia-loader-systemjs.d.ts",
   "repository": {
     "type": "git",
-    "url": "http://github.com/aurelia/loader"
+    "url": "https://github.com/wegorich/loader"
   },
   "jspm": {
     "registry": "npm",
-    "jspmPackage": true,
-    "main": "aurelia-loader",
+    "main": "aurelia-loader-systemjs",
     "format": "amd",
     "directories": {
       "dist": "dist/amd"
     },
-    "peerDependencies": {
-      "aurelia-metadata": "^1.0.0",
-      "aurelia-path": "^1.0.0"
-    },
     "dependencies": {
+      "aurelia-loader": "^1.0.0",
       "aurelia-metadata": "^1.0.0",
+      "aurelia-pal": "^1.3.0",
       "aurelia-path": "^1.0.0"
     },
     "devDependencies": {}
   },
   "dependencies": {
+    "aurelia-loader": "^1.0.0",
     "aurelia-metadata": "^1.0.0",
     "aurelia-path": "^1.0.0"
   },
   "devDependencies": {
-    "aurelia-tools": "^0.2.4",
+    "aurelia-tools": "^1.0.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
     "babel-dts-generator": "^0.6.1",
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.1.0",
     "babel-plugin-syntax-flow": "^6.8.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-es2015-modules-amd": "^6.8.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
-    "babel-plugin-transform-es2015-modules-systemjs": "^6.11.6",
+    "babel-plugin-transform-es2015-modules-systemjs": "^6.12.0",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.1.8",
     "babel-preset-es2015": "^6.9.0",
-    "babel-preset-es2015-loose": "^7.0.0",
+    "babel-preset-es2015-loose": "^8.0.0",
     "babel-preset-es2015-loose-native-modules": "^1.0.0",
+    "babel-preset-es2017": "^6.24.1",
     "babel-preset-stage-1": "^6.5.0",
+    "babel-runtime": "^6.23.0",
     "del": "^2.2.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
@@ -77,6 +81,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-jspm": "^2.2.0",
     "merge2": "^1.0.2",
+    "nan": "^2.6.2",
     "object.assign": "^4.0.4",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.2.2",

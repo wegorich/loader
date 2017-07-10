@@ -1,4 +1,4 @@
 {
-  "name": "aurelia-loader",
-  "main": "dist/aurelia-loader.d.ts"
+  "name": "aurelia-loader-systemjs",
+  "main": "dist/aurelia-loader-systemjs.d.ts"
 }

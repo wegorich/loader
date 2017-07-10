@@ -1,6 +1,8 @@
 var path = require('path');
 var paths = require('./paths');
 
+var path = require('path');
+
 exports.base = function() {
   var config = {
     filename: '',
@@ -12,10 +14,20 @@ exports.base = function() {
     comments: false,
     compact: false,
     code: true,
-    presets: [ 'es2015-loose', 'stage-1' ],
+    presets: [
+        ["env", {
+            "targets": {
+                "browsers": ["last 2 Chrome versions"]
+            }
+        }]
+    ],
     plugins: [
-      'syntax-flow',
-      'transform-decorators-legacy',
+        'syntax-flow',
+        'transform-class-properties',
+        'transform-decorators-legacy',
+        'transform-flow-strip-types',
+        'syntax-object-rest-spread',
+        'transform-object-rest-spread'
     ]
   };
   if (!paths.useTypeScriptForDTS) {
@@ -60,6 +72,5 @@ exports.es2015 = function() {
 
 exports['native-modules'] = function() {
   var options = exports.base();
-  options.presets[0] = 'es2015-loose-native-modules';
   return options;
 }

@@ -25,9 +25,7 @@ var paths = {
 };
 
 paths.files = [
-  'template-dependency.js',
-  'template-registry-entry.js',
-  'loader.js'
+  'aurelia-loader-systemjs.js'
 ].map(function(file){
   return paths.root + file;
 });

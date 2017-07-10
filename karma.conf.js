@@ -5,7 +5,7 @@ module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: '.',
 
 
     // frameworks to use
@@ -37,11 +37,18 @@ module.exports = function (config) {
     'babelPreprocessor': {
       options: {
         sourceMap: 'inline',
-        presets: [ 'es2015-loose', 'stage-1'],
+        presets: [
+          ["env", {
+            "targets": {
+              "browsers": ["last 2 Chrome versions"]
+            }
+          }]
+        ],
         plugins: [
           'syntax-flow',
           'transform-decorators-legacy',
-          'transform-flow-strip-types'
+          'transform-flow-strip-types',
+          'transform-object-rest-spread'
         ]
       }
     },
