@@ -81,7 +81,6 @@
     "karma-jasmine": "^1.0.2",
     "karma-jspm": "^2.2.0",
     "merge2": "^1.0.2",
-    "nan": "^2.6.2",
     "object.assign": "^4.0.4",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.2.2",
