@@ -61,8 +61,14 @@ System.register(['aurelia-metadata', 'aurelia-loader', 'aurelia-pal'], function 
           this.moduleRegistry = Object.create(null);
           this.useTemplateLoader(new TextTemplateLoader());
 
+          window.__aureliaLoader = this;
+
           this.addPlugin('template-registry-entry', {
             fetch: async (address, _loader) => {
+              if (!this.hmrContext) {
+                const { HmrContext } = require('aurelia-hot-module-reload');
+                this.hmrContext = new HmrContext(this);
+              }
               const entry = this.getOrCreateTemplateRegistryEntry(address);
               if (!entry.templateIsLoaded) {
                 await this.templateLoader.loadTemplate(this, entry);

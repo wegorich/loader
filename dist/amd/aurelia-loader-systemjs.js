@@ -1,4 +1,4 @@
-define(['exports', 'aurelia-metadata', 'aurelia-loader', 'aurelia-pal'], function (exports, _aureliaMetadata, _aureliaLoader, _aureliaPal) {
+define(['exports', 'aurelia-metadata', 'aurelia-loader', 'aurelia-pal', 'aurelia-hot-module-reload'], function (exports, _aureliaMetadata, _aureliaLoader, _aureliaPal) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -48,8 +48,14 @@ define(['exports', 'aurelia-metadata', 'aurelia-loader', 'aurelia-pal'], functio
       this.moduleRegistry = Object.create(null);
       this.useTemplateLoader(new TextTemplateLoader());
 
+      window.__aureliaLoader = this;
+
       this.addPlugin('template-registry-entry', {
         fetch: async (address, _loader) => {
+          if (!this.hmrContext) {
+            const { HmrContext };
+            this.hmrContext = new HmrContext(this);
+          }
           const entry = this.getOrCreateTemplateRegistryEntry(address);
           if (!entry.templateIsLoaded) {
             await this.templateLoader.loadTemplate(this, entry);

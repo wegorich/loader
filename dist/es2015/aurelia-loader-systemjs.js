@@ -60,9 +60,15 @@ let SystemJSLoader = exports.SystemJSLoader = class SystemJSLoader extends _aure
     this.moduleRegistry = Object.create(null);
     this.useTemplateLoader(new TextTemplateLoader());
 
+    window.__aureliaLoader = this;
+
     this.addPlugin('template-registry-entry', {
       fetch: (() => {
         var _ref = _asyncToGenerator(function* (address, _loader) {
+          if (!_this.hmrContext) {
+            const { HmrContext } = require('aurelia-hot-module-reload');
+            _this.hmrContext = new HmrContext(_this);
+          }
           const entry = _this.getOrCreateTemplateRegistryEntry(address);
           if (!entry.templateIsLoaded) {
             yield _this.templateLoader.loadTemplate(_this, entry);
