@@ -3,6 +3,11 @@
 
 
 
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/wegorich/loader/compare/1.0.0...v1.0.1) (2017-07-10)
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/aurelia/loader/compare/1.0.0-rc.1.0.0...v1.0.0) (2016-07-27)
 
