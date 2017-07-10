@@ -1,5 +1,5 @@
 {
-  "name": "aurelia-loader",
+  "name": "aurelia-loader-systemjs",
   "version": "1.0.1",
   "description": "An abstract module which specifies an interface for loading modules and view templates.",
   "keywords": [
@@ -8,7 +8,7 @@
     "modules"
   ],
   "homepage": "http://aurelia.io",
-  "main": "dist/commonjs/aurelia-loader.js",
+  "main": "dist/commonjs/aurelia-loader-systemjs.js",
   "moduleType": "node",
   "license": "MIT",
   "authors": [
