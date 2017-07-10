@@ -49,9 +49,18 @@ System.register(['aurelia-metadata', 'aurelia-loader', 'aurelia-pal'], function 
 
       _export('ensureOriginOnExports', ensureOriginOnExports);
 
+      let loader;
+
+      function getLoader() {
+        return loader;
+      }
+
+      _export('getLoader', getLoader);
+
       let SystemJSLoader = class SystemJSLoader extends Loader {
         constructor() {
           super();
+
           this.moduleRegistry = Object.create(null);
           this.loaderPlugins = {};
           this.modulesBeingLoaded = new Map();
@@ -61,14 +70,10 @@ System.register(['aurelia-metadata', 'aurelia-loader', 'aurelia-pal'], function 
           this.moduleRegistry = Object.create(null);
           this.useTemplateLoader(new TextTemplateLoader());
 
-          window.__aureliaLoader = this;
+          loader = this;
 
           this.addPlugin('template-registry-entry', {
             fetch: async (address, _loader) => {
-              if (!this.hmrContext) {
-                const { HmrContext } = require('aurelia-hot-module-reload');
-                this.hmrContext = new HmrContext(this);
-              }
               const entry = this.getOrCreateTemplateRegistryEntry(address);
               if (!entry.templateIsLoaded) {
                 await this.templateLoader.loadTemplate(this, entry);
@@ -88,7 +93,6 @@ System.register(['aurelia-metadata', 'aurelia-loader', 'aurelia-pal'], function 
             }
 
             let modules = System._loader.modules;
-
             for (let key in modules) {
               try {
                 if (callback(key, modules[key].module)) return;

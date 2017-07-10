@@ -24,6 +24,7 @@ export declare class TextTemplateLoader {
   loadTemplate(loader?: any, entry?: any): any;
 }
 export declare function ensureOriginOnExports(moduleExports?: any, moduleId?: any): any;
+export declare function getLoader(): any;
 
 /**
  * A default implementation of the Loader abstraction which works with SystemJS, RequireJS and Dojo Loader.
@@ -33,6 +34,7 @@ export declare class SystemJSLoader extends Loader {
   loaderPlugins: any;
   modulesBeingLoaded: any;
   templateLoader: any;
+  hmrContext: any;
   
   /**
      * Creates an instance of the SystemJSLoader.

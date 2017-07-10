@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SystemJSLoader = exports.TextTemplateLoader = undefined;
 exports.ensureOriginOnExports = ensureOriginOnExports;
+exports.getLoader = getLoader;
 
 var _aureliaMetadata = require('aurelia-metadata');
 
@@ -42,9 +43,16 @@ function ensureOriginOnExports(moduleExports, moduleId) {
   return moduleExports;
 }
 
+let loader;
+
+function getLoader() {
+  return loader;
+}
+
 let SystemJSLoader = exports.SystemJSLoader = class SystemJSLoader extends _aureliaLoader.Loader {
   constructor() {
     super();
+
     this.moduleRegistry = Object.create(null);
     this.loaderPlugins = {};
     this.modulesBeingLoaded = new Map();
@@ -54,14 +62,10 @@ let SystemJSLoader = exports.SystemJSLoader = class SystemJSLoader extends _aure
     this.moduleRegistry = Object.create(null);
     this.useTemplateLoader(new TextTemplateLoader());
 
-    window.__aureliaLoader = this;
+    loader = this;
 
     this.addPlugin('template-registry-entry', {
       fetch: async (address, _loader) => {
-        if (!this.hmrContext) {
-          const { HmrContext } = require('aurelia-hot-module-reload');
-          this.hmrContext = new HmrContext(this);
-        }
         const entry = this.getOrCreateTemplateRegistryEntry(address);
         if (!entry.templateIsLoaded) {
           await this.templateLoader.loadTemplate(this, entry);
@@ -81,7 +85,6 @@ let SystemJSLoader = exports.SystemJSLoader = class SystemJSLoader extends _aure
       }
 
       let modules = System._loader.modules;
-
       for (let key in modules) {
         try {
           if (callback(key, modules[key].module)) return;

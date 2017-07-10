@@ -44,6 +44,16 @@ export function ensureOriginOnExports(moduleExports, moduleId) {
 }
 
 /**
+ * This code help me donot polute global scopes with current Loader, and receive it.
+ */
+
+let loader;
+
+export function getLoader() {
+  return loader;
+}
+
+/**
  * A default implementation of the Loader abstraction which works with SystemJS, RequireJS and Dojo Loader.
  */
 export class SystemJSLoader extends Loader {
@@ -51,12 +61,14 @@ export class SystemJSLoader extends Loader {
   loaderPlugins = {};
   modulesBeingLoaded = new Map();
   templateLoader;
+  hmrContext;
 
   /**
    * Creates an instance of the SystemJSLoader.
    */
   constructor() {
     super();
+
     /**
      * The name of the underlying native loader plugin used to load text.
      */
@@ -64,15 +76,11 @@ export class SystemJSLoader extends Loader {
 
     this.moduleRegistry = Object.create(null);
     this.useTemplateLoader(new TextTemplateLoader());
-
-    window.__aureliaLoader = this;
+    // TODO: find way receive current loader from aurelia
+    loader = this;
 
     this.addPlugin('template-registry-entry', {
       fetch: async(address, _loader) => {
-        if (!this.hmrContext) {
-          const { HmrContext } = require('aurelia-hot-module-reload');
-          this.hmrContext = new HmrContext(this);
-        }
         const entry = this.getOrCreateTemplateRegistryEntry(address);
         if (!entry.templateIsLoaded) {
           await this.templateLoader.loadTemplate(this, entry);
@@ -80,7 +88,6 @@ export class SystemJSLoader extends Loader {
         return entry;
       }
     });
-
 
     // TODO: add event emitter hook here to watch module updates.
     // Not clear what to call
@@ -93,7 +100,7 @@ export class SystemJSLoader extends Loader {
           try {
             if (callback(k, m)) return;
           } catch (e) {
-            // continue regardless of error
+            // catch error
           }
         }
         return;
@@ -101,12 +108,11 @@ export class SystemJSLoader extends Loader {
 
       // SystemJS < 0.20.x
       let modules = System._loader.modules;
-
       for (let key in modules) {
         try {
           if (callback(key, modules[key].module)) return;
         } catch (e) {
-          // continue regardless of error
+          // catch error
         }
       }
     };
